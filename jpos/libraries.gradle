@@ -6,7 +6,7 @@ ext {
         sleepycat_je: 'com.sleepycat:je:18.3.12',
         commons_cli: 'commons-cli:commons-cli:1.4',
         commons_lang3: 'org.apache.commons:commons-lang3:3.11',
-        jline: 'org.jline:jline:3.23.0',
+        jline: 'org.jline:jline:3.25.0',
         beanshell: 'org.apache-extras.beanshell:bsh:2.0b6',
         javatuples: 'org.javatuples:javatuples:1.2',
         osgi_core: 'org.osgi:org.osgi.core:6.0.0',
@@ -20,8 +20,6 @@ ext {
             "org.bouncycastle:bcpg-lts8on:${bcVersion}"
         ],
         hamcrest: 'org.hamcrest:hamcrest:2.2',
-        sshd: 'org.apache.sshd:sshd-core:2.9.2',
-        eddsa: 'net.i2p.crypto:eddsa:0.3.0',
         slf4j_api: "org.slf4j:slf4j-api:1.7.32",
         slf4j_nop: "org.slf4j:slf4j-nop:1.7.32",
         hdrhistogram: 'org.hdrhistogram:HdrHistogram:2.1.12',

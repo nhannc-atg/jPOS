@@ -35,7 +35,6 @@ import org.jpos.core.Environment;
 import org.jpos.iso.ISOException;
 import org.jpos.iso.ISOUtil;
 import org.jpos.q2.install.ModuleUtils;
-import org.jpos.q2.ssh.SshService;
 import org.jpos.security.SystemSeed;
 import org.jpos.util.Log;
 import org.jpos.util.LogEvent;
@@ -127,13 +126,8 @@ public class Q2 implements FileFilter, Runnable {
     private String name = JMX_NAME;
     private long lastVersionLog;
     private String watchServiceClassname;
-    private boolean enableSsh;
     private boolean disableDeployScan;
     private boolean disableDynamicClassloader;
-    private int sshPort;
-    private String sshAuthorizedKeys;
-    private String sshUser;
-    private String sshHostKeyFile;
     private static String DEPLOY_PREFIX = "META-INF/q2/deploy/";
     private static String CFG_PREFIX = "META-INF/q2/cfg/";
     private String nameRegistrarKey;
@@ -236,10 +230,6 @@ public class Q2 implements FileFilter, Runnable {
             initConfigDecorator();
             if (startOSGI)
                 startOSGIFramework();
-            if (enableSsh) {
-                deployElement(SshService.createDescriptor(sshPort, sshUser, sshAuthorizedKeys, sshHostKeyFile),
-                  "05_sshd-" + getInstanceId() + ".xml", false, true);
-            }
 
             deployInternal();
             for (int i = 1; shutdown.getCount() > 0; i++) {
@@ -800,11 +790,6 @@ public class Q2 implements FileFilter, Runnable {
 
             disableDeployScan = line.hasOption("Ns");
             disableDynamicClassloader = line.hasOption("Nd");
-            enableSsh = line.hasOption("s");
-            sshPort = Integer.parseInt(line.getOptionValue("sp", "2222"));
-            sshAuthorizedKeys = line.getOptionValue ("sa", "cfg/authorized_keys");
-            sshUser = line.getOptionValue("su", "admin");
-            sshHostKeyFile = line.getOptionValue("sh", "cfg/hostkeys.ser");
             noShutdownHook = line.hasOption("Nh");
             shutdownHookDelay = line.hasOption ("sd") ? 1000L*Integer.parseInt(line.getOptionValue("sd")) : 0;
 
